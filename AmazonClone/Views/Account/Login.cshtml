@@ -1,0 +1,47 @@
+﻿
+@model AmazonClone.Models.LoginVM
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section csslinks{
+      <link rel="stylesheet" href="~/css/login.css" />
+     
+}
+@section breadcramb{
+     <li class="breadcrumb-item" aria-current="page"><a asp-action="Index" asp-controller="Home">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Login</li>
+
+
+}
+
+ <form asp-controller="Account"  asp-action="Login" method="post" style="width:50%;margin:0 auto;">
+  <div class="imgcontainer">
+    <img src="~/img_avatar2.png" alt="Avatar" class="avatar">
+  </div>
+
+  <div class="container">
+      <div class="text-danger" asp-validation-summary="All"></div>
+    <label><b>username</b></label>
+    <input type="text" placeholder="Enter username" asp-for="UserName" >
+     <div>
+        <span  class="text-danger" asp-validation-for="UserName"></span>
+    </div>
+
+    <label f><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" asp-for="password">
+       <div>
+        <span  class="text-danger" asp-validation-for="password"></span>
+    </div>
+
+    <button type="submit">Login</button>
+    <label>
+      <input type="checkbox" checked="checked"asp-for="remberMe"> Remember me
+    </label>
+  </div>
+
+  <div class="container" style="background-color:#f1f1f1">
+    <button type="button" class="cancelbtn">Cancel</button>
+    <span class="psw">Forgot <a  class="text-dark"href="#">password?</a></span>
+  </div>
+</form>

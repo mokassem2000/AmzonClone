@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<IdentityUser> signInManager;
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -6,30 +10,65 @@
     <title>@ViewData["Title"] - AmazonClone</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" />
+     @await RenderSectionAsync("csslinks", required: false)
+
+
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">AmazonClone</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
+    
+  <div class="Nav">
+      <div >
+          <div  class="Navbar">
+              <h3 id="Logo"><a href="/" class="text-light">Amazon</a></h3>
+         <div class="SearchMain">
+                 <div id="Searchselect">
+                     <sapn>select</sapn><i class="fa-solid fa-angle-down"></i>
+                 </div>
+                 <input id="sreachNavBox" type="search" placeholder="Search" aria-label="Search">
+                <div id="SearchIcon">
+                 <i class="fa-solid fa-magnifying-glass"></i>
+                 </div>
+          </div>
+            
+                   <div class="username">@{if (signInManager.IsSignedIn(User))
+                                            { 
+                                              <div class="flex">
+                                                <h3><i class="fa-solid fa-user"></i> hi @User.Identity.Name</h3>
+                                                <div class="Cart">
+                                                    <a asp-action="Logout" asp-controller="Account">Logout</a>
+                                                </div>
+                                              </div>
+                                            }
+                                        else{
+                                            <div class="Cart">
+                                                    <a asp-action="Login" asp-controller="Account" class="btn btn-danger">Login</a>
+                                                </div>
+                                             
+                                           }
+                                       }
+                 </div>
+                   
+             
             </div>
-        </nav>
-    </header>
+        
+      </div>
+     
+   
+  </div>
+
+       
+      
+
+
+   
     <div class="container">
+     <nav aria-label="breadcrumb " style="margin-top:3px">
+          <ol class="breadcrumb">
+            @RenderSection("breadcramb",required:false)
+          </ol>
+     </nav>
+
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

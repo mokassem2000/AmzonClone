@@ -1,6 +1,9 @@
+using AmazonClone.DAL.AmazonContext;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,6 +27,16 @@ namespace AmazonClone
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            //services.AddDbContext<AmazonContext>(options =>
+            // options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            
+            //services.AddTransient<UserManager<IdentityUser>>();
+            //services.AddTransient<AmazonContext>();
+            services.AddDbContext<AmazonContext>(options =>
+               options.UseSqlServer(
+                   Configuration.GetConnectionString("SharpDbConnection")));
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AmazonContext>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +56,7 @@ namespace AmazonClone
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
