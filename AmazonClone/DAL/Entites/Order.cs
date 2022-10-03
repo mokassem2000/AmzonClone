@@ -11,6 +11,7 @@ namespace AmazonClone.DAL.Entites
         public int Id { set; get; }
         [Required]
         public IdentityUser User { set; get; }
+        public int items { set; get; }
         public int total { set; get; }
         public DateTime CreateAt { set; get; } = DateTime.Now;
 

@@ -16,7 +16,7 @@ namespace AmazonClone.Controllers
         public UserManager<IdentityUser> usermanger { get; }
         public SignInManager<IdentityUser> signInManager { get; }
         public async Task<IActionResult> Signup() {
-
+            
             return View();
 
         }

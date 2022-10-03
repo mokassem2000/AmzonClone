@@ -1,0 +1,66 @@
+﻿.Cartcore {
+    display: flex;
+    justify-content: space-between;
+   
+}
+.CartItems {
+    width: 70%;
+    height: 400px;
+    overflow-y:auto;
+    padding: 10px;
+    background-color: white;
+  
+}
+.CartDitails {
+    width: 25%;
+    background: white;
+    height: 300px;
+    border: 1px solid black;
+}
+    .CartDitails h3 {
+        text-align: center;
+        padding: 10px;
+        background-color: #3f4040;
+        color: white;
+    }
+.Item {
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    width: 90%;
+    padding: 5px 10px;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: 1px 0px 4px 1px rgb(172 169 169 / 57%);
+    margin:10px 0px;
+}
+
+.Itemimage {
+
+    width:100px;
+
+}
+.Itemimage img {
+    width:100%;
+
+}
+.CountItem {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    width:40px;
+
+
+}
+.arrow {
+    display: inline-flex;
+    flex-direction: column;
+}
+.CartDitailsChiled {
+    padding:10px;
+
+}
+
+    .CartDitailsChiled a {
+        background-color: #febd69;
+    }

@@ -1,0 +1,85 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+    
+}
+           
+@section breadcramb
+{
+     <li class="breadcrumb-item active" aria-current="page"><a asp-action="Index" asp-controller="Home">Home</a></li>
+      <li class="breadcrumb-item " aria-current="page"><a asp-action="Index" asp-controller="Home">Cart</a></li>
+
+}
+
+@section csslinks 
+{
+     <link rel="stylesheet" href="~/css/Cart.css"/>
+}
+
+<div >
+    <h1>Cart</h1>
+
+    <div class="Cartcore">
+        <div class="CartItems" id="CartItems">
+            @{
+             foreach(var item in  ViewBag.orderItems)
+             {
+                             <div class="Item" >
+                                <div class="Itemimage">
+                                    <img  src="~/ProductImages/@item.Product.Image"/>
+                                </div>
+                                <h5>
+                                    @item.Product.Name
+                                </h5    >
+                                <span style="margin:0 5px;">
+                                   @item.Product.Price$
+                                </span>
+                                <div class="CountItem" id="arrowBoxId">
+                                    @item.quantity
+                                   <span class="arrow" id="arrow" >
+                                       <i class="fa-sharp fa-solid fa-caret-up" data-UpArrow="@item.Product.Id" id="upAsrrowId"></i>
+                                       <i class="fa-sharp fa-solid fa-caret-down" data-DropArrow="@item.Product.Id"></i>
+                                   </span>
+
+                                </div>
+
+                            </div>
+           
+             
+             
+             }
+            
+            
+            
+            
+            
+            }
+            
+
+
+
+        </div>
+        <div class="CartDitails">
+            <h3>Cart OverView</h3>
+            <div class="CartDitailsChiled">
+                <div><span style="font-weight:bold;">Item</span><span>:@ViewBag.ordereditemCount</span></div>
+            </div>
+             <div class="CartDitailsChiled">
+                <div><span style="font-weight:bold;">Total</span><span>:400$</span></div>
+            </div>
+             <div class="CartDitailsChiled">
+                <a class="btn  text-white ">check out</a>
+            </div>
+            
+
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script src="~/js/addProductfromCart.js"></script>
+ 
+ 
+}

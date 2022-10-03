@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AmazonClone.Models
 {
@@ -10,6 +12,9 @@ namespace AmazonClone.Models
         public string Name { set; get; }
         
         public string Desc { set; get; }
+        [NotMapped]
+        public IFormFile image { set; get; }
+        public string imageName { set; get; }
         public string SKU { set; get; }
        
 

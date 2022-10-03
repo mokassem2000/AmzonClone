@@ -1,0 +1,66 @@
+﻿.MyFlexRow {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    
+}
+
+.MyFlexRowItem {
+    flex-basis: 250px;
+    margin-rigth: 10px;
+    margin-bottom:10px;
+}
+.MainCard {
+    width:250px;
+    height:400px;
+    border: 1px #808080 solid;
+    border-radius:5px;
+    margin-left:15px;
+    padding:2px;
+}
+.ImageSectionDiv {
+    width:100%;
+    height:75%;
+    margin-bottom:5px;
+    
+
+}
+.ImageSectionDiv img {
+
+    width:100%;
+    height:100%;
+}
+.mycard-body {
+    width: 100%;
+    height:25%;
+}
+.mycard-body p:first-child{
+    height:50%;
+    padding:0 2px;
+    color:black;
+  
+
+
+
+}
+.mycard-body p:last-child {
+    margin-top:3px;
+       
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        font-weight:bold;
+        padding: 5px 2px;
+}
+    .mycard-body p:last-child span:first-child {
+        color:#B12704;
+        border-radius: 20px;
+    }
+
+ .mycard-body p:last-child span:last-child {
+            background-color: #FFD814;
+            color: black;
+            padding:0 4px;
+            border-radius: 20px;
+            cursor:pointer;
+  }

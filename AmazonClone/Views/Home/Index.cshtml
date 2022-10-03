@@ -1,14 +1,124 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+
+    Pager pager = new Pager();
+    int pageNo = 0;
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+
+
+
+    
+    }
+
 }
+@model  IQueryable<AmazonClone.Models.ProductVM>
 @section breadcramb{
      <li class="breadcrumb-item active" aria-current="page"><a asp-action="Index" asp-controller="Home">Home</a></li>
       
 
 
 }
+@section csslinks 
+{
+     <link rel="stylesheet" href="~/css/products.css"/>
+}
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-   
+       <div><a class="btn btn-primary" href="~/Home/CreateProduct">create Product</a><div>
+       <div class="MyFlexRow" id="MyFlexRow">
+           
+            @{
+            foreach (var item in @Model)
+            { 
+                          
+                                     <div class="MyFlexRowItem   MainCard ">
+                                       <a href="~/Home/ProductDitail/@item.Id" style="text-decoration:none;">
+                                          <div class="ImageSectionDiv">
+                                             <img src="~/ProductImages/@item.imageName" alt="Card image cap">
+                                          </div>
+                                      </a>   
+                                  <div class="mycard-body">
+                                      
+                                      @{            
+                                        if (@item.Name.Length > 60)
+                                        {
+                                            <p class="card-text"> @item.Name.Substring(0, 60)....</p>
+                                        }else
+                                        {
+                                            
+                                           <p class="card-text">@item.Name</p>
+                                        
+                                        }
+
+                                      }
+                                          
+                                          
+                                     
+                                                 <p>
+                                                  <span>@item.Price$</span>
+                                                  <span data-ProductId=@item.Id class="addbtn">Add to cart</span>  
+                                                 </p>
+                                                
+                                  </div>
+                                      </div>  
+                             
+
+
+
+
+
+                    }
+
+
+                }
+
+
+
+
+
+
+
+
+
+
+            </div>  
+            <div class="container">
+                @{
+                                   <ul class="pagination">
+                                      @if (pager.CurrentPage> 1)
+                        { 
+                                    <li class="page-item"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-pg="@(pager.CurrentPage-1)" >Previous</a></li> 
+                                    <li class="page-item"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-pg="1" >Frist</a></li> 
+                        
+                        }
+                                   @if (pager.TotalPages > 0)
+                        { 
+                                    @for(var Pge=pager.StartPage; Pge<=pager.EndPage; Pge++)
+                        {
+                        
+                                     <li class="page-item @(Pge==pager.CurrentPage?"active":"")"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-pg="@Pge" >@Pge</a></li>
+                        
+                        }
+
+
+                          
+                           
+                        }
+                                    @if (pager.CurrentPage < pager.TotalPages)
+                        { 
+                                    <li class="page-item"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-pg="@(pager.CurrentPage+1)" >Next</a></li> 
+                                    <li class="page-item"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-pg="@pager.TotalPages" >Last</a></li> 
+                        
+                        }
+                                    
+                                  </ul>
+          
+          }
+
+      </div>
 </div>
+ 
+
+   

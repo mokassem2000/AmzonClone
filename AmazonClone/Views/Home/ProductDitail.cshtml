@@ -1,0 +1,51 @@
+﻿@model AmazonClone.Models.ProductVM
+@{
+    ViewData["Title"] = "ProductDitail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section csslinks
+{
+
+       <link rel="stylesheet" href="~/css/Product.css" />
+
+}
+
+           
+@section breadcramb
+{
+     <li class="breadcrumb-item active" aria-current="page"><a asp-action="Index" asp-controller="Home">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page"><a asp-action="Index" asp-controller="Home">@Model.Name</a></li>
+
+}
+
+
+<div class="Ditailsec">
+    <div class="ProductImage">
+        <img src="~/ProductImages/@Model.imageName" />
+    </div>
+     <div class="ProductDescription">
+         <h2>@Model.Desc</h2>
+            @{
+            if (@Model.StockQuantity > 0)
+            {
+                <h3 class="text-primary">In Stock</h3>
+                       
+             } else{
+                 <h3 class="text-danger ">Not availabel Now </h3>
+                       
+             }      
+             }
+         <div class="Add-To-CartDitaiol">
+             add to Cart
+         </div>
+
+
+     </div>
+
+
+
+
+
+
+</div>
+

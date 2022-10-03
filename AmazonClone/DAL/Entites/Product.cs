@@ -14,6 +14,8 @@ namespace AmazonClone.DAL.Entites
         public string Name{ set; get; }
         [Required]
         public string Desc { set; get; }
+        [Required]
+        public string Image { set; get; }
         public string SKU { set; get; }
         [Required]
          

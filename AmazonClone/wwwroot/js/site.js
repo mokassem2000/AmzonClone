@@ -1,11 +1,7 @@
-﻿
-let obj = document.getElementById("Searchselect");
-function brdr() {
-    obj.parentElement.classList.toggle= "brdr";
- 
-
-
+﻿let ele = document.getElementById("sreachNavBox");
+function addbrder(e){
+    e.target.parentNode.classList.toggle("brdr");
+    
 
 }
-
-obj.addEventListener('click', brdr)
+ele.addEventListener('click', addbrder);

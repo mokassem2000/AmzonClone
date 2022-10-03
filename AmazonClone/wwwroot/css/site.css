@@ -1,11 +1,24 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
+* {
+box-sizing:border-box;
 
+
+}
 a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
 }
+
+a:hover
+{
+
+   color:grey;
+}
+
+
+
 
 /* Provide sufficient contrast against white background */
 
@@ -80,16 +93,8 @@ body {
 
 
 }
-a {
 
-    text-decoration-line:none;
- 
-
-}
-    a:hover {
-        text-decoration-line: none;
-        color: white;
-    }
+  
 
     .Navbar {
         display: flex;
@@ -98,16 +103,15 @@ a {
         align-items: center;
     }
 .SearchMain {
-    width:60%;
-    display:flex;
-    margin:0 50px ;
+    width: 50%;
+    display: flex;
+    margin: 0 50px;
+    height: 40px;
+    align-items:center;
 }
 .brder {
-    
-    border:2px yellow solid;
-
-
-
+    border: 2px #febd69 solid;
+    border-radius: 8px;
 }
 #sreachNavBox {
     width: calc(100% - 40px);
@@ -124,6 +128,9 @@ a {
     display: flex;
     padding: 2px;
     align-items: center;
+    position:relative;
+    border:0;
+
 }
 #SearchIcon {
     width: 45px;
@@ -135,5 +142,51 @@ a {
     align-items: center;
     color:black;
     justify-content:center;
-}
    
+}
+
+
+.Cart_container {
+    display:flex;
+    margin-right:30px;
+    width:30%;
+
+    align-items:center;
+
+}
+.Cart i{
+
+font-size:40px;
+margin-right:20px;
+
+
+}
+.UserName {
+    font-size:15px;
+    margin-right:5px;
+
+
+
+
+}
+.Cart_container .Cart {
+
+    margin-left:5px;
+    position:relative;
+    
+
+}
+    .Cart_container .Cart .CartCount {
+        content: "";
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: red;
+        position: absolute;
+        right: -3px;
+        top: -3px;
+        z-index: 100;
+        display:flex;
+        align-items:center;
+        justify-content:center; 
+    }
