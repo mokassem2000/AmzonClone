@@ -59,18 +59,15 @@ namespace AmazonClone.Controllers
 
             return View();
         }
-      
+
         public async Task<IActionResult> AddItem(int id)
         {
             IdentityUser user = HttpContext.User.Identity.IsAuthenticated ? await _usermanger.FindByNameAsync(HttpContext.User.Identity.Name) : null;
-
+            var product = _context.products.Where(p => p.Id == id).ToArray();
+            var userorder = _context.orders.Include(o => o.User).FirstOrDefault(o => o.User.Id == user.Id);
+            var orderditem = _context.OoderItems.FirstOrDefault(o => o.OrderId == userorder.Id && o.ProductId == product[0].Id);
             if (user != null)
             {
-                var product = _context.products.Where(p => p.Id == id).ToArray();
-                var userorder = _context.orders.Include(o => o.User).FirstOrDefault(o => o.User.Id == user.Id);
-                var orderditem = _context.OoderItems.FirstOrDefault(o => o.OrderId == userorder.Id && o.ProductId == product[0].Id);
-
-
                 userorder = _context.orders.Include(o => o.User).FirstOrDefault(o => o.User.Id == user.Id);
                 if (userorder == null)
                 {
@@ -87,32 +84,34 @@ namespace AmazonClone.Controllers
                 orderditem = _context.OoderItems.FirstOrDefault(o => o.OrderId == userorder.Id && o.ProductId == product[0].Id);
                 if (orderditem == null)
                 {
+                    if (product[0].StockQuantity >=1)
+                    {
+                        OrderdItem orderdItem = new OrderdItem() { OrderId = userorder.Id, ProductId = product[0].Id, quantity = 1, };
+                        _context.Add(orderdItem);
+                        userorder.items += 1;
+                        product[0].StockQuantity -= 1;
+                        _context.Update(userorder);
+                        _context.Update(product[0]);
+                        _context.SaveChanges();
+                        return Json(new { orderditem.quantity });
 
-                    OrderdItem orderdItem = new OrderdItem() { OrderId = userorder.Id, ProductId = product[0].Id, quantity = 1, };
-                    _context.Add(orderdItem);
-                    userorder.items += 1;
+                    }                   
+
+                }
+                if (product[0].StockQuantity >=1)
+                {
+                    orderditem.quantity += 1;
                     product[0].StockQuantity -= 1;
-                    _context.Update(userorder);
+                    userorder.items = orderditem.quantity;
                     _context.Update(product[0]);
+                    _context.Update(orderditem);
+                    _context.Update(userorder);
                     _context.SaveChanges();
                     return Json(new { orderditem.quantity });
                 }
-                orderditem.quantity += 1;
-                product[0].StockQuantity -= 1;
-                userorder.items = orderditem.quantity;
-                _context.Update(product[0]);
-                _context.Update(orderditem);
-                _context.Update(userorder);
-                _context.SaveChanges();
-                return Json(new {orderditem.quantity});
-
             }
-                return RedirectToAction("Login", "Account");
-           
-
-            
-
-        }
+            return Json(new { orderditem.quantity });
+        } 
         public async  Task<IActionResult> removeItem(int id)
         {
             var product = _context.products.Where(p => p.Id == id).ToArray();
@@ -123,12 +122,15 @@ namespace AmazonClone.Controllers
             if (orderditem.quantity > 1)
             {
                 orderditem.quantity -= 1;
+                product[0].StockQuantity += 1;
                 userorder.items = orderditem.quantity;
                 _context.Update(orderditem);
                 _context.SaveChanges();
                 return Json(new { orderditem.quantity });
             }
+            product[0].StockQuantity -= 1;
             _context.Remove(orderditem);
+
             _context.SaveChanges();
             return Json(new { orderditem.quantity });
         }

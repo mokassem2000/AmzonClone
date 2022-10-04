@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace AmazonClone.Controllers
@@ -18,7 +19,7 @@ namespace AmazonClone.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
+    
         public IProductreo Products { get; }
         public IHostingEnvironment HostingEnvironment { get; }
 
@@ -33,7 +34,7 @@ namespace AmazonClone.Controllers
         public IActionResult Index(int pg=1)
 
         {
-            
+           
             /*int PageIndex,int PageSize*/
             const int pagesize = 10;
             if (pg < 1)
@@ -46,6 +47,7 @@ namespace AmazonClone.Controllers
             int recskip = (pg - 1) * pagesize;
             var data = Products.GetAllProducts().Skip(recskip).Take(pagesize);
 
+           
           
             ViewBag.Pager = pager;
 

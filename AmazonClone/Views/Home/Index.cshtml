@@ -1,4 +1,7 @@
-﻿@{
+﻿@inject SignInManager<IdentityUser> signInManager;
+
+
+@{
     ViewData["Title"] = "Home Page";
 
     Pager pager = new Pager();
@@ -25,7 +28,8 @@
 {
      <link rel="stylesheet" href="~/css/products.css"/>
 }
-
+   
+  
        <div><a class="btn btn-primary" href="~/Home/CreateProduct">create Product</a><div>
        <div class="MyFlexRow" id="MyFlexRow">
            

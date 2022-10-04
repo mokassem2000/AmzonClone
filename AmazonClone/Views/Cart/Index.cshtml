@@ -26,7 +26,7 @@
             @{
              foreach(var item in  ViewBag.orderItems)
              {
-                             <div class="Item" >
+                             <div class="Item" id="card+@item.Product.Id" >
                                 <div class="Itemimage">
                                     <img  src="~/ProductImages/@item.Product.Image"/>
                                 </div>
@@ -37,7 +37,10 @@
                                    @item.Product.Price$
                                 </span>
                                 <div class="CountItem" id="arrowBoxId">
-                                    @item.quantity
+                                <span id="item+@item.Product.Id">
+                                   @item.quantity
+                                </span>
+                                    
                                    <span class="arrow" id="arrow" >
                                        <i class="fa-sharp fa-solid fa-caret-up" data-UpArrow="@item.Product.Id" id="upAsrrowId"></i>
                                        <i class="fa-sharp fa-solid fa-caret-down" data-DropArrow="@item.Product.Id"></i>

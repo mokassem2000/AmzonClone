@@ -1,6 +1,7 @@
 ﻿using AmazonClone.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace AmazonClone.Controllers
@@ -66,7 +67,8 @@ namespace AmazonClone.Controllers
         {
             if (ModelState.IsValid)
             {
-              var rslt= await  signInManager.PasswordSignInAsync(model.UserName, model.password,model.remberMe,false);
+              
+                var rslt= await  signInManager.PasswordSignInAsync(model.UserName, model.password,model.remberMe,false);
                 if (rslt.Succeeded)
                 {
                     return RedirectToAction("Index","Home");
