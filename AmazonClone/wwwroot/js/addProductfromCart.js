@@ -17,8 +17,10 @@ for (let i = 0; i < CartItems.length; i++) {
         console.log(`ftuygh ${id}`)
         fetch(`https://localhost:44389/Cart/AddItem/${id}`).then((response) => response.json())
             .then((data) => {
-                console.log(`item+${id}`);
-                document.getElementById(`item+${id}`).innerText = `${data.quantity}`
+                document.getElementById(`item+${id}`).innerText = `${data.quantity}`;
+                document.getElementById("totalcountId").innerText = `: ${data.totalitem}`
+                document.getElementById("totalpriceId").innerText = ` : ${data.totalprice}`
+                console.log(data);
             });
     })};
 
@@ -27,14 +29,16 @@ for (let i = 0; i < CartItems.length; i++) {
     let item = CartItems[i];
     item.getElementsByTagName("i")[1].addEventListener('click', (e) => {
         let id = e.target.getAttribute('data-DropArrow')
-        console.log(`ftuygh ${id}`)
         fetch(`https://localhost:44389/Cart/removeItem/${id}`).then((response) => response.json())
             .then((data) => {
-                console.log(`item+${id}`);
-                if (data.quantity > 1) {
-                    document.getElementById(`item+${id}`).innerText = `${data.quantity}`
+                if (data.quantity == 0 ) {
+                    CartitemsParent.removeChild(document.getElementById(`card+${id}`));   
+                    document.getElementById("totalcountId").innerText = `: ${data.totalitem}`
+                    document.getElementById("totalpriceId").innerText = ` : ${data.totalprice}`
                 } else {
-                    CartitemsParent.removeChild(document.getElementById(`card+${id}`));
+                    document.getElementById(`item+${id}`).innerText = `${data.quantity}`
+                    document.getElementById("totalcountId").innerText = `: ${data.totalitem}`
+                    document.getElementById("totalpriceId").innerText = ` : ${data.totalprice}`
                 }
             });
     })

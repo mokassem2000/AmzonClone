@@ -1,4 +1,5 @@
-﻿using AmazonClone.DAL.AmazonContext;
+﻿using AmazonClone.BL.classes;
+using AmazonClone.DAL.AmazonContext;
 using AmazonClone.DAL.Entites;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -16,15 +17,17 @@ namespace AmazonClone.Controllers
         private readonly UserManager<IdentityUser> _usermanger;
         private readonly Order _order;
         private readonly AmazonContext _context;
+        private readonly Total _total;
 
         public SignInManager<IdentityUser> _signInManager { get; }
 
-        public CartController(UserManager<IdentityUser> usermanger, Order order, AmazonContext Context, SignInManager<IdentityUser> signInManager)
+        public CartController(UserManager<IdentityUser> usermanger, Order order, AmazonContext Context, SignInManager<IdentityUser> signInManager,Total total)
         {
             _usermanger = usermanger;
             _order = order;
             _context = Context;
             _signInManager = signInManager;
+            _total = total;
         }
 
         public async Task<IActionResult> Index()
@@ -37,6 +40,7 @@ namespace AmazonClone.Controllers
                 var userorder = _context.orders.Include(o => o.User).FirstOrDefault(o => o.User.Id == user.Id);
                 if (userorder == null)
                 {
+
                     userorder = new Order()
                     {
                         User = user,
@@ -52,7 +56,7 @@ namespace AmazonClone.Controllers
                 var orderItems = _context.OoderItems.Include(o => o.Product).Where(o => o.OrderId == userorder.Id).ToArray();
                 ViewBag.orderItems = orderItems;
                 ViewBag.ordereditemCount = userorder.items;
-
+                ViewBag.userorder = userorder;
 
             }
 
@@ -91,9 +95,11 @@ namespace AmazonClone.Controllers
                         userorder.items += 1;
                         product[0].StockQuantity -= 1;
                         _context.Update(userorder);
-                        _context.Update(product[0]);
+                        _context.Update(product[0]);                 
                         _context.SaveChanges();
-                        return Json(new { orderditem.quantity });
+                        _total.cartTotal(userorder);
+                        _total.cartTotalprice(userorder);
+                        return Json(new { orderditem.quantity,Totalitem= _total.cartTotal(userorder),Totalprice = _total.cartTotalprice(userorder) });
 
                     }                   
 
@@ -107,7 +113,7 @@ namespace AmazonClone.Controllers
                     _context.Update(orderditem);
                     _context.Update(userorder);
                     _context.SaveChanges();
-                    return Json(new { orderditem.quantity });
+                    return Json(new { orderditem.quantity ,Totalitem=_total.cartTotal(userorder),Totalprice= _total.cartTotalprice(userorder) });
                 }
             }
             return Json(new { orderditem.quantity });
@@ -119,20 +125,25 @@ namespace AmazonClone.Controllers
             var userorder = _context.orders.Include(o => o.User).FirstOrDefault(o => o.User.Id == user.Id);
             var orderditem = _context.OoderItems.FirstOrDefault(o => o.OrderId == userorder.Id && o.ProductId == product[0].Id);
 
-            if (orderditem.quantity > 1)
+            if (orderditem.quantity >= 1)
             {
+                if (orderditem.quantity == 1){
+                    orderditem.quantity = 0;
+                    product[0].StockQuantity += 1;
+                    _context.Remove(orderditem);
+                    _context.SaveChanges();
+                    return Json(new { quantity=0,Totalitem = _total.cartTotal(userorder), Totalprice = _total.cartTotalprice(userorder) });
+                }
                 orderditem.quantity -= 1;
                 product[0].StockQuantity += 1;
                 userorder.items = orderditem.quantity;
                 _context.Update(orderditem);
                 _context.SaveChanges();
-                return Json(new { orderditem.quantity });
+                _total.cartTotal(userorder);
+                _total.cartTotalprice(userorder);
+                return Json(new { orderditem.quantity, Totalitem = _total.cartTotal(userorder), Totalprice = _total.cartTotalprice(userorder) });
             }
-            product[0].StockQuantity -= 1;
-            _context.Remove(orderditem);
-
-            _context.SaveChanges();
-            return Json(new { orderditem.quantity });
+            return Json(new { orderditem.quantity, Totalitem = _total.cartTotal(userorder), Totalprice = _total.cartTotalprice(userorder) });
         }
     }
 }

@@ -33,6 +33,7 @@ namespace AmazonClone
             services.AddMvc();
             services.AddScoped<IProductreo, ProductRepo>();
             services.AddScoped<Order>();
+            services.AddScoped<Total>();
             services.AddScoped<CategoryRepo>();
 
             services.AddDbContext<AmazonContext>(options =>

@@ -5,8 +5,6 @@
 @inject AmazonClone.BL.classes.CategoryRepo categoryRepo;
 
 
-     
-
 
 
 <!DOCTYPE html>
@@ -33,10 +31,10 @@
                 
                   <select name="ProductTypeFilter"  id="Searchselect">
                         @{
-                                                <option value="All">All</option>
+                                                        <option value="All">All</option>
                             foreach (var item in categoryRepo.GetAllCategory())
                             {
-                                                   <option value="@item.Id">@item.Name</option>
+                                                           <option value="@item.Id">@item.Name</option>
                             
                             
                             
@@ -56,17 +54,17 @@
               
                  <div class="username">@{if (signInManager.IsSignedIn(User))
                                             { 
-                                                                  <div class="d-flex align-items-center">
-                                                                    <h3 class="UserName"> hi,@User.Identity.Name</h3>
-                                                                    <div >
-                                                                        <a class="btn btn-danger" asp-action="Logout" asp-controller="Account">Logout</a>
-                                                                    </div>
-                                                                  </div>
+                                                                          <div class="d-flex align-items-center">
+                                                                            <h3 class="UserName"> hi,@User.Identity.Name</h3>
+                                                                            <div >
+                                                                                <a class="btn btn-danger" asp-action="Logout" asp-controller="Account">Logout</a>
+                                                                            </div>
+                                                                          </div>
                                             }
                                         else{
-                                                                <div>
-                                                                        <a asp-action="Login" asp-controller="Account" class="btn btn-danger">Login</a>
-                                                                </div>
+                                                                        <div>
+                                                                                <a asp-action="Login" asp-controller="Account" class="btn btn-danger">Login</a>
+                                                                        </div>
                                              
                                            }
                                        }
@@ -74,7 +72,7 @@
                 <div class="Cart">
                 <a asp-controller="Cart" asp-action="Index" style="color:white;">
                      <span class="CartCount">0</span>
-                    <i class="fa-solid fa-cart-shopping " ></i>
+                  
                 </a>
                   
                 </div>
