@@ -1,3 +1,5 @@
 # AmzonClone
 ![image_large](https://user-images.githubusercontent.com/61114321/221220061-1efc2ee9-37bc-47b0-ac52-9deb450dd5c5.png)
 # Home Page
+![image_large](https://user-images.githubusercontent.com/61114321/221220950-e4b9f973-8f5f-4d61-b2ce-c400433d8e07.png)
+# Product Ditail
